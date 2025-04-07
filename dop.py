@@ -3,7 +3,7 @@ import random
 import string
 import asyncio
 
-x += 1
+x = 1
 
 async def generate_random_message(min_length=50, max_length=200):
     length = random.randint(min_length, max_length)
