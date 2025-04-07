@@ -3,6 +3,8 @@ import random
 import string
 import asyncio
 
+x += 1
+
 async def generate_random_message(min_length=50, max_length=200):
     length = random.randint(min_length, max_length)
     characters = string.ascii_letters + string.digits + string.punctuation + " "
@@ -10,6 +12,7 @@ async def generate_random_message(min_length=50, max_length=200):
     return message
 
 async def send_udp_message(host, port, message):
+    global x
     try:
         # Создаем UDP-сокет
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -18,10 +21,11 @@ async def send_udp_message(host, port, message):
         # Отправляем сообщение
         sock.sendto(message.encode(), (host, port))
 
-        print(f"UDP-сообщение отправлено на {host}:{port}")
+        x += 1
+        print(f"UDP-сообщение отправлено {x} на {host}:{port}")
 
     except Exception as e:
-        print(f"Ошибка при отправке UDP-сообщения: {e}")
+        print(e)
 
     finally:
         # Закрываем сокет
